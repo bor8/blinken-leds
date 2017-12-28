@@ -29,14 +29,11 @@ def main():
             socket.send_string('angekommen')
             print(type(bmsg))
             pins = np.fromstring(bmsg, dtype=np.int32)
-            pins_original = pins.reshape(8,3)
-            print(pins_original)
-            time.sleep(0.1 - (time.time() % 0.1))
-            k = 0
-            for pin in pins_original.T.flat:
-                k += 1
-                # print('blubb' + str(pin))
-                GPIO.output(k, int(pin))
+            #pins_original = pins.reshape(8,3)
+            #print(pins_original)
+            time.sleep(1.0/30.0 - (time.time() % (1./30.)))
+            GPIO.output(np.where(pins == GPIO.HIGH), GPIO.HIGH)
+            GPIO.output(np.where(pins == GPIO.LOW), GPIO.LOW)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
