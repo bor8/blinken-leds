@@ -26,6 +26,7 @@ def main():
     try:
         while True:
             bmsg = socket.recv()
+            socket.send_string('angekommen')
             print(type(bmsg))
             pins = np.fromstring(bmsg, dtype=np.int32)
             pins_original = pins.reshape(8,3)
@@ -36,7 +37,6 @@ def main():
                 k += 1
                 # print('blubb' + str(pin))
                 GPIO.output(k, int(pin))
-            socket.send_string('angekommen und verarbeitet')
     except KeyboardInterrupt:
         GPIO.cleanup()
 
