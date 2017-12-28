@@ -32,8 +32,8 @@ def main():
             #pins_original = pins.reshape(8,3)
             #print(pins_original)
             time.sleep(1.0/30.0 - (time.time() % (1./30.)))
-            GPIO.output(np.where(pins == GPIO.HIGH), GPIO.HIGH)
-            GPIO.output(np.where(pins == GPIO.LOW), GPIO.LOW)
+            GPIO.output(np.where(pins == GPIO.HIGH)[0], GPIO.HIGH)
+            GPIO.output(np.where(pins == GPIO.LOW)[0], GPIO.LOW)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
