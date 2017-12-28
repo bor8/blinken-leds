@@ -31,7 +31,7 @@ def main():
             pins = np.fromstring(bmsg, dtype=np.int32)
             pins_original = pins.reshape(8,3)
             print(pins_original)
-            time.sleep(2.0 - (time.time() % 2.0))
+            time.sleep(0.1 - (time.time() % 0.1))
             k = 0
             for pin in pins_original.T.flat:
                 k += 1
