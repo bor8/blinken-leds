@@ -27,7 +27,7 @@ def main():
         while True:
             bmsg = socket.recv()
             socket.send_string('angekommen')
-            print(type(bmsg))
+            # print(type(bmsg))
             pins = np.fromstring(bmsg, dtype=np.int32)
             #pins_original = pins.reshape(8,3)
             #print(pins_original)
