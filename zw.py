@@ -1,8 +1,8 @@
-import base64
 import numpy as np
 import RPi.GPIO as GPIO
 import socket
 # import sys
+import time
 import zmq
 
 def get_ip():
@@ -13,6 +13,7 @@ def get_ip():
     return ip
 
 def main():
+    starttime = time.time()
     GPIO.setmode(GPIO.BCM)
     # GPIO.setwarnings(False)
     for k in range(1, 25):
@@ -30,6 +31,7 @@ def main():
             pins = np.fromstring(bmsg, dtype=np.int32)
             pins_original = pins.reshape(8,3)
             print(pins_original)
+            time.sleep(60.0 - ((time.time() - starttime) % 60))
             k = 0
             for pin in pins_original.T.flat:
                 k += 1
