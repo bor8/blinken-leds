@@ -23,18 +23,21 @@ def main():
     print(ip)
     # Funzt nur mit LAN-IP:
     socket.bind('tcp://{}:26231'.format(ip))
-    while True:
-        bmsg = socket.recv()
-        print(type(bmsg))
-        pins = np.fromstring(bmsg, dtype=np.int32)
-        pins_original = pins.reshape(8,3)
-        print(pins_original)
-        k = 0
-        for pin in pins_original.T.flat:
-            k += 1
-            # print('blubb' + str(pin))
-            GPIO.output(k, int(pin))
-        socket.send_string('angekommen und verarbeitet')
+    try:
+        while True:
+            bmsg = socket.recv()
+            print(type(bmsg))
+            pins = np.fromstring(bmsg, dtype=np.int32)
+            pins_original = pins.reshape(8,3)
+            print(pins_original)
+            k = 0
+            for pin in pins_original.T.flat:
+                k += 1
+                # print('blubb' + str(pin))
+                GPIO.output(k, int(pin))
+            socket.send_string('angekommen und verarbeitet')
+    except KeyboardInterrupt:
+        GPIO.cleanup()
 
 if __name__ == "__main__":
     main()
