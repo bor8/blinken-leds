@@ -46,8 +46,8 @@ def main():
                 time.sleep(fpsk_min)
             # print(highs)
             # print(lows)
-            GPIO.output(highs, GPIO.HIGH)
-            GPIO.output(lows, GPIO.LOW)
+            GPIO.output(np.random.shuffle(highs), GPIO.HIGH)
+            GPIO.output(np.random.shuffle(lows), GPIO.LOW)
     finally:
         tqw_alive = False
         GPIO.cleanup()
