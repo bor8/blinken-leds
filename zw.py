@@ -34,7 +34,7 @@ def main():
             pins = pins.T.flat
             # time.sleep(1.0/30.0 - (time.time() % (1./30.)))
             highs = np.where(pins == GPIO.HIGH)[0]
-            lows = np.where(pins == GPIO.LOW)[0]
+            lows = np.where(pins == -1)[0]
             highs += 1
             lows += 1
             np.random.shuffle(highs)
