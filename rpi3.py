@@ -7,7 +7,7 @@ import zmq
 
 def main():
     init_warten = 1.0
-    fps = 10.0
+    fps = 4.0
     fpsk_min = 1.0 / 500.0
     q_target = 10
 
@@ -45,15 +45,19 @@ def main():
             q.put((abspiel_soll_zeit_max, b1, b2, b3, b4, b5, b6))
             abspiel_soll_zeit_max += fpsk
             # print(pins)
-            pins = np.roll(pins, 1, axis=0)
+            pins = np.roll(pins, 1, axis=1)
         if qsize1 < q_target:
             while q.qsize() > 0:
                 ts, b1, b2, b3, b4, b5, b6 = q.get()
                 # print(ts)
                 socket1.send_pyobj((ts, b1))
+                socket2.send_pyobj((ts, b2))
                 qsize1 = socket1.recv_pyobj()
+                qsize2 = socket2.recv_pyobj()
         socket1.send_pyobj('Weiter!')
+        socket2.send_pyobj('Weiter!')
         qsize1 = socket1.recv_pyobj()
+        qsize2 = socket2.recv_pyobj()
         # print(qsize1)
         time.sleep(fpsk_min * 3.0)
 
