@@ -7,9 +7,9 @@ import zmq
 
 def main():
     init_warten = 1.0
-    fps = 4.0
+    fps = 24.0
     fpsk_min = 1.0 / 500.0
-    q_target = 10
+    q_target = 100
 
     fpsk = 1.0 / fps
     q = queue.Queue()
@@ -44,8 +44,9 @@ def main():
             b6 = pins6.tostring()
             q.put((abspiel_soll_zeit_max, b1, b2, b3, b4, b5, b6))
             abspiel_soll_zeit_max += fpsk
-            # print(pins)
+            pins_alt = pins
             pins = np.roll(pins, 1, axis=1)
+            pins = pins - pins_alt
         if qsize1 < q_target:
             while q.qsize() > 0:
                 ts, b1, b2, b3, b4, b5, b6 = q.get()
