@@ -8,6 +8,7 @@ import time
 import zmq
 
 fpsk_min = 1.0 / 500.0
+q_target = 100
 q = queue.Queue()
 tqw_alive = True
 
@@ -62,7 +63,7 @@ def q_worker():
     # Funzt nur mit LAN-IP oder Stern:
     socket.bind('tcp://{}:26231'.format(ip))
     while tqw_alive == True:
-        while q.qsize() < 10:
+        while q.qsize() < q_target:
             via_rpi3 = socket.recv_pyobj()
             socket.send_pyobj(int(q.qsize()))
             if via_rpi3 == 'Weiter!':
