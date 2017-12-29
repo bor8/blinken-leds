@@ -37,8 +37,8 @@ def main():
             lows = np.where(pins == GPIO.LOW)[0]
             highs += 1
             lows += 1
-            highs = np.random.shuffle(highs)
-            lows = np.random.shuffle(lows)
+            np.random.shuffle(highs)
+            np.random.shuffle(lows)
             highs = highs.tolist()
             lows = lows.tolist()
             while True:
