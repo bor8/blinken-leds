@@ -12,12 +12,19 @@ def main():
             zeit_vorher = zeit
             zeit = int(time.time_ns() / (10 ** 9))  # in Sekunden
             if zeit_vorher != zeit:
+                # Alle "gleichzeitig":
                 for k in pins:
                     GPIO.output(k, GPIO.HIGH)
                 time.sleep(0.1)
                 for k in pins:
                     GPIO.output(k, GPIO.LOW)
-            time.sleep(0.8)
+                # Einzeln bzw. nacheinander:
+                for k in pins:
+                    time.sleep(0.01)
+                    GPIO.output(k, GPIO.HIGH)
+                for k in pins:
+                    time.sleep(0.01)
+                    GPIO.output(k, GPIO.LOW)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
