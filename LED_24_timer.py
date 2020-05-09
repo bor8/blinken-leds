@@ -18,13 +18,6 @@ def main():
                 time.sleep(0.1)
                 for k in pins:
                     GPIO.output(k, GPIO.LOW)
-                # Einzeln bzw. nacheinander:
-                for k in pins:
-                    time.sleep(0.01)
-                    GPIO.output(k, GPIO.HIGH)
-                for k in pins:
-                    time.sleep(0.01)
-                    GPIO.output(k, GPIO.LOW)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
