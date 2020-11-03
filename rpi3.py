@@ -21,8 +21,10 @@ def main():
     context = zmq.Context()
     socket1 = context.socket(zmq.REQ)  # Client
     socket2 = context.socket(zmq.REQ)  # Client
-    socket1.connect('tcp://zw1:26231')
-    socket2.connect('tcp://zw2:26231')
+    socket3 = context.socket(zmq.REQ)  # Client
+    socket1.connect('tcp://zero1:26231')
+    socket2.connect('tcp://zero2:26231')
+    socket3.connect('tcp://zero3:26231')
     video_start_zeit = time.time() + init_warten
     abspiel_soll_zeit_max = video_start_zeit
     qsize1 = 0
@@ -54,12 +56,16 @@ def main():
                 # print(ts)
                 socket1.send_pyobj((ts, b1))
                 socket2.send_pyobj((ts, b2))
+                socket3.send_pyobj((ts, b3))
                 qsize1 = socket1.recv_pyobj()
                 qsize2 = socket2.recv_pyobj()
+                qsize3 = socket3.recv_pyobj()
         socket1.send_pyobj('Weiter!')
         socket2.send_pyobj('Weiter!')
+        socket3.send_pyobj('Weiter!')
         qsize1 = socket1.recv_pyobj()
         qsize2 = socket2.recv_pyobj()
+        qsize3 = socket3.recv_pyobj()
         # print(qsize1)
         time.sleep(fpsk_min * 3.0)
 
