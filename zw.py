@@ -29,7 +29,7 @@ def main():
     try:
         while True:
             ts, bmsg = q.get()
-            pins = np.fromstring(bmsg, dtype=np.int32)
+            pins = np.frombuffer(bmsg, dtype=np.int32)
             pins = pins.reshape(8,3)
             # print(pins)
             pins = pins.T.flat
